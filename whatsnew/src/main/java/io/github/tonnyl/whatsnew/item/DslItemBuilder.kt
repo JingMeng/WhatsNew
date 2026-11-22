@@ -1,7 +1,7 @@
 package io.github.tonnyl.whatsnew.item
 
 import android.graphics.Color
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 import io.github.tonnyl.whatsnew.WhatsNew
 import io.github.tonnyl.whatsnew.util.PresentationOption
 

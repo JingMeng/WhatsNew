@@ -3,10 +3,10 @@ package io.github.tonnyl.whatsnew
 import android.graphics.Color
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.DialogFragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
@@ -88,7 +88,7 @@ class WhatsNew : DialogFragment() {
         }
 
         // Make the dialog fullscreen.
-        val window = dialog.window
+        val window = requireNotNull(requireDialog().window)
         window.setBackgroundDrawableResource(android.R.color.white)
         window.decorView.setPadding(0, 0, 0, 0)
         with(window.attributes) {
@@ -148,6 +148,7 @@ class WhatsNew : DialogFragment() {
                     // Obtain the first two numbers of last version name.
                     PreferenceManager.getDefaultSharedPreferences(activity)
                             .getString(LAST_VERSION_NAME, "")
+                            .orEmpty()
                             .split("\\.".toRegex())
                             .filter { !it.isEmpty() && !it.isBlank() }
                             .apply {

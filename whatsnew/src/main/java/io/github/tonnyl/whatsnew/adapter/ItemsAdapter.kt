@@ -2,14 +2,14 @@ package io.github.tonnyl.whatsnew.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import io.github.tonnyl.whatsnew.R
 import io.github.tonnyl.whatsnew.item.WhatsNewItem
-import kotlinx.android.synthetic.main.item.view.*
 
 /**
  * Created by lizhaotailang on 30/11/2017.
@@ -19,23 +19,24 @@ class ItemsAdapter(private val mData: Array<WhatsNewItem>, private val mContext:
     var titleColor: Int = Color.parseColor("#000000")
     var contentColor: Int = Color.parseColor("#808080")
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position <= mData.size) {
             with(holder as ItemViewHolder) {
                 with(itemView) {
-                    mData[position].imageRes?.let { itemTitleTextView.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext, it), null, null, null) }
-                    itemTitleTextView.compoundDrawablePadding = 16
-                    itemTitleTextView.text = mData[position].title
-                    itemTitleTextView.setTextColor(titleColor)
+                    val titleView = findViewById<TextView>(R.id.itemTitleTextView)
+                    mData[position].imageRes?.let { titleView.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(mContext, it), null, null, null) }
+                    titleView.compoundDrawablePadding = 16
+                    titleView.text = mData[position].title
+                    titleView.setTextColor(titleColor)
 
-                    itemContentTextView.text = mData[position].content
-                    itemContentTextView.setTextColor(contentColor)
+                    findViewById<TextView>(R.id.itemContentTextView).text = mData[position].content
+                    findViewById<TextView>(R.id.itemContentTextView).setTextColor(contentColor)
                 }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item, parent, false))
     }
 

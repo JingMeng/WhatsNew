@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 def configuration = rootProject.ext.configuration
 def libraries = rootProject.ext.libraries
 
 android {
+    compileOptions { sourceCompatibility JavaVersion.VERSION_11; targetCompatibility JavaVersion.VERSION_11 }
+    kotlinOptions { jvmTarget = '11' }
+    namespace 'io.github.tonnyl.sample'
     compileSdkVersion configuration.compileSdkVersion
-    buildToolsVersion configuration.buildToolsVersion
+    // build tools selected by AGP
 
     defaultConfig {
         applicationId "io.github.tonnyl.sample"
@@ -15,7 +17,7 @@ android {
         targetSdkVersion configuration.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -26,6 +28,7 @@ android {
                 optimizeCode false
                 proguardFile 'proguard-rules.pro'
             }
+    
         }
     }
 }
@@ -34,10 +37,14 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':whatsnew')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation "com.android.support:appcompat-v7:${libraries.supportLibraryVersion}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
 
     testImplementation "junit:junit:${libraries.junitVersion}"
     androidTestImplementation "com.android.support.test:runner:${libraries.androidTestRunnerRulesVersion}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:${libraries.espressoVersion}"
 }
+
+
+
+

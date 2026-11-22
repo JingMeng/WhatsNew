@@ -2,7 +2,7 @@ package io.github.tonnyl.whatsnew.item
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.support.annotation.DrawableRes
+import androidx.annotation.DrawableRes
 
 /**
  * Created by lizhaotailang on 30/11/2017.
@@ -19,8 +19,8 @@ data class WhatsNewItem(
     }
 
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
+            parcel.readString() ?: "",
+            parcel.readString() ?: "",
             parcel.readValue(Int::class.java.classLoader) as? Int)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
